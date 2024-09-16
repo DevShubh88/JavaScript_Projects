@@ -44,15 +44,14 @@ let currentItem = 0;
 
 // load initial value by using Dom
 window.addEventListener("DOMContentLoaded", () => {
-  showPerson(currentItem);
+  showPerson();
 });
 
 // show person based on item
 
-function showPerson(person){
+function showPerson() {
   console.log("bake and shake");
-  const item = reviews[person];
-  console.log(item.img);
+  const item = reviews[currentItem];
   img.src = item.img;
   author.textContent = item.name;
   job.textContent = item.job;
@@ -63,23 +62,25 @@ function showPerson(person){
 // show next person
 nextBtn.addEventListener("click", () => {
   currentItem++;
-  if(currentItem < reviews.length){
-    showPerson(currentItem)
-  }
-  else{
+  if (currentItem > reviews.length - 1) {
     currentItem = 0;
-    showPerson(currentItem);
   }
+  showPerson();
 })
 
 // show previous person
 prevBtn.addEventListener("click", () => {
-  currentItem = reviews.length -1;
-  if(currentItem >= 0){
-    showPerson(currentItem)
+  currentItem--;
+  if (currentItem < 0) {
+    currentItem = reviews.length - 1;
   }
-  else{
-    currentItem = 0;
-    showPerson(currentItem);
-  }
+  showPerson();
+})
+
+// show random person
+
+randomBtn.addEventListener("click", () => {
+  currentItem = Math.floor(Math.random() * reviews.length);
+  console.log(currentItem);
+  showPerson();
 })
